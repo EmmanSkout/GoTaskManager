@@ -1,0 +1,68 @@
+{{ range . }}
+<tr>
+  <td
+    hx-include="[id='task-id-{{.ID}}'],[id='task-description-{{.ID}}'],[id='task-date-{{.ID}}'],[id='task-complete-{{.ID}}']"
+  >
+    <input
+      id="task-name-{{.ID}}"
+      class="form-control transparent-input"
+      type="text"
+      value="{{ .Name }}"
+      name="Name"
+      hx-target="#tBody"
+      hx-post="/tasks/modify"
+      hx-trigger="input changed delay:1s"
+    />
+  </td>
+  <td
+    hx-include="[id='task-id-{{.ID}}'],[id='task-name-{{.ID}}'],[id='task-date-{{.ID}}'],[id='task-complete-{{.ID}}']"
+  >
+    <input
+      id="task-description-{{.ID}}"
+      class="form-control transparent-input"
+      type="text"
+      value="{{ .Description }}"
+      name="Description"
+      hx-target="#tBody"
+      hx-post="/tasks/modify"
+      hx-trigger="input changed delay:1s"
+    />
+  </td>
+  <td
+    hx-include="[id='task-id-{{.ID}}'],[id='task-description-{{.ID}}'],[id='task-name-{{.ID}}'],[id='task-complete-{{.ID}}']"
+  >
+    <input
+      id="task-date-{{.ID}}"
+      class="form-control transparent-input"
+      type="date"
+      value="{{ .Date }}"
+      name="Date"
+      hx-target="#tBody"
+      hx-post="/tasks/modify"
+      hx-trigger="input changed delay:1s"
+    />
+  </td>
+  <td
+    hx-include="[id='task-id-{{.ID}}'],[id='task-description-{{.ID}}'],[id='task-date-{{.ID}}'],[id='task-name-{{.ID}}']"
+  >
+    <input
+      type="checkbox"
+      id="task-complete-{{.ID}}"
+      name="Complete"
+      {{
+      if
+      .Complete
+      }}
+      checked
+      {{
+      end
+      }}
+      hx-target="#tBody"
+      hx-post="/tasks/modify"
+      hx-trigger="click"
+    />
+  </td>
+  <input type="hidden" id="task-id-{{.ID}}" name="ID" value="{{ .ID}}" />
+</tr>
+
+{{ end }}
