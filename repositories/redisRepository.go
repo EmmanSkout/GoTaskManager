@@ -13,12 +13,11 @@ var client *redis.Client
 var ctx = context.Background()
 
 func InitializeClient() {
-	client = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-
+	addr, err := redis.ParseURL("rediss://default:AVNS_ov-ChsA7VCHcwCrMLPR@redis-51fa277-manolisskout2-c728.a.aivencloud.com:17815")
+	if err != nil {
+		panic(err)
+	}
+	client = redis.NewClient(addr)
 }
 
 func ModifyTask(task models.Task) {
