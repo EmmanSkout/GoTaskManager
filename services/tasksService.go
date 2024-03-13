@@ -17,7 +17,7 @@ var tmpl *template.Template
 
 func parseTemplate() {
 	var err error
-	tmpl, err = template.ParseFiles("static/templates/task.html")
+	tmpl, err = template.ParseFiles("docs/templates/task.html")
 	if err != nil {
 		log.Fatal(err)
 	}

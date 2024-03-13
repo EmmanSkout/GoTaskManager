@@ -22,7 +22,7 @@ jobs:
       run: go build -o GoTaskManager
 
     - name: Copy HTML files
-      run: cp -r static/* $GITHUB_WORKSPACE/
+      run: cp -r docs/* $GITHUB_WORKSPACE/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
