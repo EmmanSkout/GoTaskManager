@@ -3,7 +3,6 @@ package repositories
 import (
 	"context"
 	"fmt"
-	"os"
 	"strconv"
 
 	models "github.com/EmmanSkout/TaskManager/models"
@@ -14,7 +13,7 @@ var client *redis.Client
 var ctx = context.Background()
 
 func InitializeClient() {
-	addr, err := redis.ParseURL(os.Getenv("REDIS_URL"))
+	addr, err := redis.ParseURL("rediss://default:AVNS_ov-ChsA7VCHcwCrMLPR@redis-51fa277-manolisskout2-c728.a.aivencloud.com:17815")
 	if err != nil {
 		panic(err)
 	}
