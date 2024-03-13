@@ -1,31 +1,31 @@
-name: Go Deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master 
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.22.1 
+        go-version: 1.22.1
 
-    - name: Build and Deploy
-      run: |
-        go build -o GoTaskManager
-        mkdir -p docs
-        cp GoTaskManager docs/
+    - name: Build Go application
+      run: go build -o GoTaskManager
+
+    - name: Copy HTML files
+      run: cp -r static/* $GITHUB_WORKSPACE/
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        publish_dir: ./docs
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
