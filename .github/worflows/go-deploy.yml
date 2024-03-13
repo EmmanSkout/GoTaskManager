@@ -1,0 +1,32 @@
+name: Go Deploy
+
+on:
+  push:
+    branches:
+      - master # Change this to your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.22.1 # Update to the desired Go version
+
+    - name: Build and Deploy
+      run: |
+        go build -o myapp
+        mkdir -p docs
+        cp myapp docs/
+      # Add any additional commands needed for your build process
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
+        publish_dir: ./docs
