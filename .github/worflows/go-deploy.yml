@@ -8,12 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      REDIS_URL: ${{ secrets.REDIS_URL }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
+      env:
+        REDIS_URL: ${{ secrets.REDIS_URL }}
     - name: Set up Go
       uses: actions/setup-go@v2
       with:

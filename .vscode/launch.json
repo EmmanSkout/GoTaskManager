@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "C:/Users/eskoutelis/Desktop/Personal Stuff/Go/TaskManager"
+            "program": "C:/Users/manos/Desktop/GoTaskManager/GoTaskManager/TaskManager.exe"
         }
     ]
 }
