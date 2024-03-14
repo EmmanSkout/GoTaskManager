@@ -1,27 +1,35 @@
-name: Build and Deploy to Netlify
+name: Deploy to Netlify
+
 on:
   push:
-    branches: 
-      - master
-  pull_request:
+    branches:
+      - main
+
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
+      - name: Setup Go
+        uses: actions/setup-go@v2
         with:
-          publish-dir: './docs'
-          production-branch: master
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: false
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
+          go-version: '1.22.1'
+
+      - name: Build Go Backend
+        run: |
+          go build -o GoTaskManager
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
+          NETLIFY_DIR: ${{ secrets.NETLIFY_DIR }}
