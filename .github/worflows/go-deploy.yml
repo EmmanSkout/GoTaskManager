@@ -11,8 +11,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      env:
-        REDIS_URL: ${{ secrets.REDIS_URL }}
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
@@ -20,3 +19,5 @@ jobs:
 
     - name: Build Go application
       run: go build -o GoTaskManager
+      env:
+        REDIS_URL: ${{ secrets.REDIS_URL }}
