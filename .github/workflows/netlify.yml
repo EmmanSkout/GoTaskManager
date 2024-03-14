@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Go Backend
         run: |
-          go build -o GoTaskManager
+          go build -o GoTaskManager .
 
   deploy:
     runs-on: ubuntu-latest
