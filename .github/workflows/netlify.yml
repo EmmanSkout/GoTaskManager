@@ -21,15 +21,11 @@ jobs:
       - name: Build Go Backend
         run: |
           go build -o GoTaskManager
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
+   deploy:
+    name: 'Deploy to Netlify'
     steps:
-      - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
-        env:
+      - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+        with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DIR: ${{ secrets.NETLIFY_DIR }}
+          NETLIFY_DEPLOY_TO_PROD: true
